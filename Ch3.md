@@ -10,4 +10,4 @@ The thing it interacts with, comprising everything outside the agent, is called 
 - - -
 
 Agent는 action들을 선택하고 Environment는 이러한 action들에 반응하고 agent에게 새로운 state를 나타내면서 계속해서 상호작용한다.
-![3-1.png](.\images_in_sutton\3-1.png)
+![3-1.png](/images_in_sutton/3-1.png)
