@@ -13,7 +13,7 @@ Agent는 action들을 선택하고 Environment는 이러한 action들에 반응�
 
 ![3-1.png](/images_in_sutton\3-1.png)
 
-https://latex.codecogs.com/gif.latex?%24%24%20%5Cpi%28a%7Cs%29%3D%5Cmathbb%7BP%7D%5BA_t%3Da%7CS_t%3Ds%5D%20%24%24
+
 
 #### Return $$$ G_t $$$ 
 The return $$$G_t$$$ is the total discounted reward from time-step $$$t$$$
