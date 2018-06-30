@@ -70,15 +70,35 @@ v_{\pi}(s)
 &=\mathbb{E}_{\pi}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+ \cdots|S_t=s]\\
 &=\mathbb{E}_{\pi}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+ \cdots)|S_t=s]\\
 &=\mathbb{E}_{\pi}[R_{t+1}+\gamma G_{t+1}|S_t=s]\\
-&=\mathbb{E}_{\pi}[R_{t+1}]+\mathbb{E}_{\pi}[ \gamma G_{t+1}|S_t=s]\\
-&=\mathbb{E}_{\pi}[R_{t+1}]+\mathbb{E}_{\pi}[ \gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']|S_t=s]\\
+&=\mathbb{E}_{\pi}[R_{t+1}|S_t=s]+\mathbb{E}_{\pi}[ \gamma G_{t+1}|S_t=s]\\
+&=\mathbb{E}_{\pi}[R_{t+1}|S_t=s]+\mathbb{E}_{\pi}[ \gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']|S_t=s]\\
 &=\mathbb{E}_{\pi}[R_{t+1}+\gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']|S_t=s]\\
-&=\sum_{r}p(r|s)\big[r+\gamma\mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']\big]\\
-&=\sum_{s'}\sum_{r}p(s',r|s)\big[r+\gamma\mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']\big]\\
-&=\sum_{a}\pi(a|s)\sum_{s'}\sum_{r}p(s',r|s,a)\big[r+\gamma\mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']\big]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma v_{\pi}(s')|S_t=s]\\
+&=\sum_{r}p(r|s)\big[r+\gamma v_{\pi}(s')\big]\\
+&=\sum_{s'}\sum_{r}p(s',r|s)\big[r+\gamma v_{\pi}(s')\big]\\
+&=\sum_{a}\pi(a|s)\sum_{s'}\sum_{r}p(s',r|s,a)\big[r+\gamma v_{\pi}(s')\big]\\
 &=\sum_{a}\pi(a|s)\sum_{s',r}p(s',r|s,a)\big[r+\gamma v_{\pi}(s')]\\
 \end{aligned}
 $$
+
+#### Bellman equation for $$$ q_{\pi}$$$
+$$
+\begin{aligned}
+q_{\pi}(s,a)
+&=\mathbb{E}_{\pi}[G_t|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+ \cdots|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+ \cdots)|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma G_{t+1}|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}|S_t=s, A_t=a]+\mathbb{E}_{\pi}[ \gamma G_{t+1}|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}|S_t=s, A_t=a]+\mathbb{E}_{\pi}[ \gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s',A_{t+1}=a']|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s', A_{t+1}=a']|S_t=s, A_t=a]\\
+&=\mathbb{E}_{\pi}[R_{t+1}+\gamma q_{\pi}(s',a')|S_t=s, A_t=a]\\
+&=\sum_{r}p(r|s,a)\big[r+\gamma q_{\pi}(s',a')\big]\\
+&=\sum_{s'}\sum_{r}p(s',r|s,a)\big[r+\gamma q_{\pi}(s',a')\big]\\
+&=\sum_{s',r}p(s',r|s,a)\big[r+\gamma q_{\pi}(s',a')\big]\\
+\end{aligned}
+$$
+
 
 ### 3.6 Optimal Policies and Optimal Value Functions.
 #### Optimal state-value function
@@ -106,5 +126,20 @@ $$
 \begin{aligned}
 q_{*}(s,a)
 &=\mathbb{E}[R_{t+1}+\gamma v_{*}(S_{t+1})| S_t=s, A_t=a]\\
+\end{aligned}
+$$
+
+#### Bellman optimality equation ( Bellman equation for $$$ v_*$$$ )
+$$
+\begin{aligned}
+v_{*}(s)
+&=\max_{a\in A(s)}{q_{\pi}(s,a)}\\
+&=\max_{a}\mathbb{E}[G_t|S_t=s, A_t=a]\\
+&=\max_{a}\mathbb{E}[R_{t+1}+\gamma G_{t+1}|S_t=s, A_t=a]\\
+&=\max_{a}\mathbb{E}_{\pi}[R_{t+1}]+\mathbb{E}_{\pi}[ \gamma G_{t+1}|S_t=s]\\
+&=\max_{a}\mathbb{E}_{\pi}[R_{t+1}]+\mathbb{E}_{\pi}[ \gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']|S_t=s]\\
+&=\max_{a}\mathbb{E}_{\pi}[R_{t+1}+\gamma \mathbb{E}_{\pi}[G_{t+1}|S_{t+1}=s']|S_t=s]\\
+&=\max_{a\in A(s)}{q_{\pi}(s,a)}\\
+&=\max_{a\in A(s)}{q_{\pi}(s,a)}\\
 \end{aligned}
 $$
